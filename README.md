@@ -10,6 +10,7 @@ Proper waste management is a growing challenge across the globe. Traditional was
 Waste mismanagement leads to pollution, health hazards, and inefficient recycling. Current sorting techniques cannot scale with increasing urban waste generation. There is a need for an automated, scalable, and intelligent waste sorting solution that minimizes human intervention and improves recycling accuracy.
 
 4. Objectives
+
 Develop a CNN model for waste classification
 
 Train the model on labeled images of plastic, metal, paper, and organic materials
@@ -21,6 +22,8 @@ Implement a Python-based application to make predictions on new images
 Propose an integration path with hardware systems (cameras, robotic arms)
 
 5. Literature Review
+
+
 Smart Bin Systems: Projects like CleanRobotics and Bin-e use sensors and AI for waste sorting.
 
 Deep Learning in Image Classification: CNNs outperform traditional classifiers in handling unstructured data like images.
@@ -28,6 +31,7 @@ Deep Learning in Image Classification: CNNs outperform traditional classifiers i
 Transfer Learning: Pretrained models like MobileNet, VGG16 can improve classification accuracy with smaller datasets.
 
 6. Methodology
+
 6.1 Dataset Preparation
 Collected ~2000 images from online datasets and manual photography
 
@@ -84,6 +88,7 @@ waste_sorter/
 ├── train_model.py
 ├── predict.py
 └── README.md
+
 7.3 Model Training Code (Excerpt)
 python
 Copy
@@ -98,6 +103,7 @@ model = Sequential([
     Dropout(0.5),
     Dense(4, activation='softmax')
 ])
+
 8. Results and Evaluation
 8.1 Accuracy Metrics
 Training Accuracy: 92%
@@ -113,4 +119,5 @@ Shows good distinction between paper and plastic. Some confusion between metal a
 Plots show smooth convergence with minimal overfitting due to data augmentation and dropout.
 
 9. Discussion
+    
 The model performs well under controlled conditions. Accuracy can drop with real-world images due to varied lighting, dirt, and overlapping waste. For deployment, integration with object detection and real-time video processing is needed.
