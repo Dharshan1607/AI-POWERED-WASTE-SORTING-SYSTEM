@@ -1,0 +1,43 @@
+import cv2
+import numpy as np
+import tensorflow as tf
+import RPi.GPIO as GPIO
+import time
+
+# GPIO pin setup for servo
+SERVO_PIN = 18
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(SERVO_PIN, GPIO.OUT)
+servo = GPIO.PWM(SERVO_PIN, 50)
+servo.start(0)
+
+# Load pre-trained model
+model = tf.keras.models.load_model('waste_sorting_model.h5')
+
+# Define labels
+labels = ['plastic', 'paper', 'metal', 'organic']
+
+# Servo positions for each category
+servo_positions = {
+    'plastic': 3,
+    'paper': 7,
+    'metal': 11,
+    'organic': 15
+}
+
+def classify_image(image):
+    image = cv2.resize(image, (128, 128)) / 255.0
+    image = image.reshape(1, 128, 128, 3)
+    predictions = model.predict(image)
+    class_index = np.argmax(predictions)
+    return labels[class_index]
+
+def move_servo(category):
+    angle = servo_positions.get(category, 3)
+    duty = 2 + (angle / 18)
+    servo.ChangeDutyCycle(duty)
+    time.sleep(1)
+    servo.ChangeDutyCycle(0)
+
+def main():
+    camera = cv
